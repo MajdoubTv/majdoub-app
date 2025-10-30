@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login Screen</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: Arial, sans-serif;
@@ -22,12 +18,6 @@
       align-items: center;
       overflow: hidden;
       position: relative;
-      opacity: 0; /* ⛔ نبدأها مخفية */
-      transition: opacity 0.3s ease;
-    }
-
-    body.show {
-      opacity: 1; /* ✅ منين نقرر نعرضها */
     }
 
     body::before {
@@ -53,6 +43,14 @@
       text-align: center;
       box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .login-container.show {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .logo {
@@ -61,30 +59,16 @@
       margin-bottom: 20px;
     }
 
-    h1 {
-      color: #fff;
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
+    h1 { color: #fff; font-size: 24px; margin-bottom: 10px; }
+    p { color: #ddd; margin-bottom: 20px; font-size: 14px; }
 
-    p {
-      color: #ddd;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-
-    .input-group {
-      margin-bottom: 15px;
-      text-align: left;
-    }
-
+    .input-group { margin-bottom: 15px; text-align: left; }
     .input-group label {
       color: #fff;
       font-size: 14px;
       display: block;
       margin-bottom: 5px;
     }
-
     .input-group input {
       width: 100%;
       padding: 10px;
@@ -96,7 +80,6 @@
       outline: none;
       transition: 0.3s;
     }
-
     .input-group input:focus {
       border-color: #e50914;
       background-color: rgba(255, 255, 255, 0.2);
@@ -110,10 +93,7 @@
       font-size: 13px;
       opacity: 0.9;
     }
-
-    .forgot-password:hover {
-      text-decoration: underline;
-    }
+    .forgot-password:hover { text-decoration: underline; }
 
     .login-btn {
       width: 100%;
@@ -127,52 +107,36 @@
       transition: all 0.3s ease;
       margin-top: 10px;
     }
-
     .login-btn:hover {
       background-color: #b50611;
       transform: scale(1.03);
     }
 
-    p a {
-      color: #e50914;
-      text-decoration: none;
-    }
-
-    p a:hover {
-      text-decoration: underline;
-    }
+    p a { color: #e50914; text-decoration: none; }
+    p a:hover { text-decoration: underline; }
 
     @media (max-width: 480px) {
-      .login-container {
-        width: 90%;
-        padding: 25px;
-      }
-
-      .logo {
-        max-width: 200px;
-      }
-
-      h1 {
-        font-size: 20px;
-      }
+      .login-container { width: 90%; padding: 25px; }
+      .logo { max-width: 200px; }
+      h1 { font-size: 20px; }
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
+  <div class="login-container" id="loginBox">
     <div class="login-content">
-      <img src="https://l.top4top.io/p_35900ww4g1.png" alt="Majdoub Logo" class="logo">
+      <img src="https://l.top4top.io/p_35900ww4g1.png" alt="Majdoub Logo" class="logo" />
       <h1>Welcome Back!</h1>
       <p>You have been missed for long time</p>
 
       <form onsubmit="goHome(event)">
         <div class="input-group">
           <label for="email">Email / Username</label>
-          <input type="text" id="email" name="email" required>
+          <input type="text" id="email" name="email" required />
         </div>
         <div class="input-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required>
+          <input type="password" id="password" name="password" required />
         </div>
         <a href="#" class="forgot-password">Forgot password?</a>
         <button type="submit" class="login-btn">Login</button>
@@ -183,22 +147,22 @@
   </div>
 
   <script>
-    // 🔸 نتحقق أولاً بصمت قبل عرض الصفحة
-    document.body.style.display = "none";
+    // ✅ عند تحميل الصفحة
+    window.onload = () => {
+      const loginBox = document.getElementById("loginBox");
+      loginBox.classList.add("show");
 
-    window.onload = function() {
-      if (localStorage.getItem("loggedIn") === "true") {
-        window.location.href = "go:Home";
-      } else {
-        document.body.style.display = "flex";
-        document.body.classList.add("show");
+      // ✅ إذا المستخدم مسجل من قبل → يدخل مباشرة للصفحة الرئيسية
+      if (localStorage.getItem("isLoggedIn") === "true") {
+        window.location.replace("go:Home");
       }
-    }
+    };
 
+    // ✅ تسجيل الدخول
     function goHome(e) {
       e.preventDefault();
-      localStorage.setItem("loggedIn", "true");
-      window.location.href = "go:Home";
+      localStorage.setItem("isLoggedIn", "true"); // حفظ الدخول
+      window.location.href = "go:Home"; // تحويل داخل التطبيق
     }
   </script>
 </body>
