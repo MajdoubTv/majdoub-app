@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Screen</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    /* 🔹 شاشة التحميل */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    #loader img {
+      width: 150px;
+      animation: pulse 1.2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { opacity: 0.5; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* 🔹 الجسم والخلفية */
     body {
       font-family: Arial, sans-serif;
       height: 100vh;
@@ -20,6 +50,7 @@
       position: relative;
     }
 
+    /* 🔹 طبقة ضبابية تغطي كامل الشاشة */
     body::before {
       content: "";
       position: absolute;
@@ -32,6 +63,7 @@
       z-index: 0;
     }
 
+    /* 🔹 الكارت */
     .login-container {
       position: relative;
       z-index: 1;
@@ -43,14 +75,6 @@
       text-align: center;
       box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .login-container.show {
-      opacity: 1;
-      transform: scale(1);
     }
 
     .logo {
@@ -59,16 +83,30 @@
       margin-bottom: 20px;
     }
 
-    h1 { color: #fff; font-size: 24px; margin-bottom: 10px; }
-    p { color: #ddd; margin-bottom: 20px; font-size: 14px; }
+    h1 {
+      color: #fff;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
 
-    .input-group { margin-bottom: 15px; text-align: left; }
+    p {
+      color: #ddd;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
     .input-group label {
       color: #fff;
       font-size: 14px;
       display: block;
       margin-bottom: 5px;
     }
+
     .input-group input {
       width: 100%;
       padding: 10px;
@@ -80,6 +118,7 @@
       outline: none;
       transition: 0.3s;
     }
+
     .input-group input:focus {
       border-color: #e50914;
       background-color: rgba(255, 255, 255, 0.2);
@@ -93,7 +132,10 @@
       font-size: 13px;
       opacity: 0.9;
     }
-    .forgot-password:hover { text-decoration: underline; }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
 
     .login-btn {
       width: 100%;
@@ -107,36 +149,58 @@
       transition: all 0.3s ease;
       margin-top: 10px;
     }
+
     .login-btn:hover {
       background-color: #b50611;
       transform: scale(1.03);
     }
 
-    p a { color: #e50914; text-decoration: none; }
-    p a:hover { text-decoration: underline; }
+    p a {
+      color: #e50914;
+      text-decoration: none;
+    }
 
+    p a:hover {
+      text-decoration: underline;
+    }
+
+    /* 🔹 متجاوبة مع الهاتف */
     @media (max-width: 480px) {
-      .login-container { width: 90%; padding: 25px; }
-      .logo { max-width: 200px; }
-      h1 { font-size: 20px; }
+      .login-container {
+        width: 90%;
+        padding: 25px;
+      }
+
+      .logo {
+        max-width: 200px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="login-container" id="loginBox">
+  <!-- ✅ شاشة تحميل -->
+  <div id="loader">
+    <img src="https://l.top4top.io/p_35900ww4g1.png" alt="Loading...">
+  </div>
+
+  <div class="login-container" style="display:none;">
     <div class="login-content">
-      <img src="https://l.top4top.io/p_35900ww4g1.png" alt="Majdoub Logo" class="logo" />
+      <img src="https://l.top4top.io/p_35900ww4g1.png" alt="Majdoub Logo" class="logo">
       <h1>Welcome Back!</h1>
       <p>You have been missed for long time</p>
 
       <form onsubmit="goHome(event)">
         <div class="input-group">
           <label for="email">Email / Username</label>
-          <input type="text" id="email" name="email" required />
+          <input type="text" id="email" name="email" required>
         </div>
         <div class="input-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
+          <input type="password" id="password" name="password" required>
         </div>
         <a href="#" class="forgot-password">Forgot password?</a>
         <button type="submit" class="login-btn">Login</button>
@@ -147,22 +211,29 @@
   </div>
 
   <script>
-    // ✅ عند تحميل الصفحة
-    window.onload = () => {
-      const loginBox = document.getElementById("loginBox");
-      loginBox.classList.add("show");
+    // ✅ التحقق إذا المستخدم مسجل
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      window.location.replace("go:Home");
+    }
 
-      // ✅ إذا المستخدم مسجل من قبل → يدخل مباشرة للصفحة الرئيسية
-      if (localStorage.getItem("isLoggedIn") === "true") {
-        window.location.replace("go:Home");
-      }
-    };
+    // ✅ شاشة التحميل
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      const content = document.querySelector(".login-container");
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        setTimeout(() => {
+          loader.style.display = "none";
+          content.style.display = "block";
+        }, 500);
+      }, 600); // ⏱ مدة التحميل 0.6 ثانية
+    });
 
-    // ✅ تسجيل الدخول
+    // ✅ عند الضغط على Login
     function goHome(e) {
       e.preventDefault();
-      localStorage.setItem("isLoggedIn", "true"); // حفظ الدخول
-      window.location.href = "go:Home"; // تحويل داخل التطبيق
+      localStorage.setItem("isLoggedIn", "true");
+      window.location.href = "go:Home";
     }
   </script>
 </body>
