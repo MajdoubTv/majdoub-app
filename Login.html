@@ -11,7 +11,6 @@
       box-sizing: border-box;
     }
 
-    /* 🔹 الجسم والخلفية */
     body {
       font-family: Arial, sans-serif;
       height: 100vh;
@@ -23,9 +22,14 @@
       align-items: center;
       overflow: hidden;
       position: relative;
+      opacity: 0; /* ⛔ نبدأها مخفية */
+      transition: opacity 0.3s ease;
     }
 
-    /* 🔹 طبقة ضبابية تغطي كامل الشاشة */
+    body.show {
+      opacity: 1; /* ✅ منين نقرر نعرضها */
+    }
+
     body::before {
       content: "";
       position: absolute;
@@ -38,7 +42,6 @@
       z-index: 0;
     }
 
-    /* 🔹 الكارت */
     .login-container {
       position: relative;
       z-index: 1;
@@ -139,7 +142,6 @@
       text-decoration: underline;
     }
 
-    /* 🔹 متجاوبة مع الهاتف */
     @media (max-width: 480px) {
       .login-container {
         width: 90%;
@@ -181,18 +183,22 @@
   </div>
 
   <script>
-    // ✅ التحقق إذا المستخدم سبق دخل
+    // 🔸 نتحقق أولاً بصمت قبل عرض الصفحة
+    document.body.style.display = "none";
+
     window.onload = function() {
       if (localStorage.getItem("loggedIn") === "true") {
         window.location.href = "go:Home";
+      } else {
+        document.body.style.display = "flex";
+        document.body.classList.add("show");
       }
     }
 
-    // ✅ تسجيل الدخول وتخزين الحالة
     function goHome(e) {
       e.preventDefault();
       localStorage.setItem("loggedIn", "true");
-      window.location.href = "go:Home"; // تحويل إلى الصفحة الرئيسية
+      window.location.href = "go:Home";
     }
   </script>
 </body>
