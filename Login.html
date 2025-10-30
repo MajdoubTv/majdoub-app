@@ -1,128 +1,199 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Screen</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Screen</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
+    /* 🔹 الجسم والخلفية */
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      width: 100vw;
+      background: url('https://b.top4top.io/p_3590h6tkb1.jpg') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
 
-        /* الخلفية مع التأثير */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: url('https://b.top4top.io/p_3590h6tkb1.jpg') no-repeat center center fixed;
-            background-size: cover;
-            filter: blur(3px) brightness(0.5);
-            z-index: -1;
-        }
+    /* 🔹 طبقة ضبابية تغطي كامل الشاشة */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(1px) brightness(0.6);
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 0;
+    }
 
-        .login-container {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 30px;
-            border-radius: 10px;
-            width: 350px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
+    /* 🔹 الكارت */
+    .login-container {
+      position: relative;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      padding: 35px 30px;
+      border-radius: 15px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        .logo {
-            width: 100%;
-            max-width: 250px;
-            margin-bottom: 20px;
-        }
+    .logo {
+      width: 100%;
+      max-width: 230px;
+      margin-bottom: 20px;
+    }
 
-        h1 { color: #fff; font-size: 24px; margin-bottom: 10px; }
-        p { color: #fff; margin-bottom: 20px; }
+    h1 {
+      color: #fff;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
 
-        .input-group { margin-bottom: 15px; text-align: left; }
-        .input-group label { color: #fff; font-size: 14px; display: block; margin-bottom: 5px; }
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
+    p {
+      color: #ddd;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
 
-        .forgot-password { display: block; color: #fff; margin-top: 5px; text-decoration: none; }
-        .forgot-password:hover { text-decoration: underline; }
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
 
-        .login-btn {
-            width: 100%;
-            padding: 10px;
-            background-color: #e50914;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .login-btn:hover { background-color: #b50611; }
+    .input-group label {
+      color: #fff;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+    }
 
-        p a { color: #fff; text-decoration: none; }
-        p a:hover { text-decoration: underline; }
-    </style>
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #888;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #e50914;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .forgot-password {
+      display: block;
+      color: #fff;
+      margin-top: 5px;
+      text-decoration: none;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #e50914;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .login-btn:hover {
+      background-color: #b50611;
+      transform: scale(1.03);
+    }
+
+    p a {
+      color: #e50914;
+      text-decoration: none;
+    }
+
+    p a:hover {
+      text-decoration: underline;
+    }
+
+    /* 🔹 متجاوبة مع الهاتف */
+    @media (max-width: 480px) {
+      .login-container {
+        width: 90%;
+        padding: 25px;
+      }
+
+      .logo {
+        max-width: 200px;
+      }
+
+      h1 {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-content">
-            <img src="https://l.top4top.io/p_35900ww4g1.png" alt="Majdoub Logo" class="logo">
-            <h1>Welcome Back!</h1>
-            <p>You have been missed for long time</p>
-            <form id="loginForm">
-                <div class="input-group">
-                    <label for="email">Email / Username</label>
-                    <input type="text" id="email" name="email" required>
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <a href="#" class="forgot-password">Forgot password?</a>
-                <button type="submit" class="login-btn">Login</button>
-            </form>
-            <p>Don't have an account? <a href="#">Register Now</a></p>
+  <div class="login-container">
+    <div class="login-content">
+      <img src="https://l.top4top.io/p_35900ww4g1.png" alt="Majdoub Logo" class="logo">
+      <h1>Welcome Back!</h1>
+      <p>You have been missed for long time</p>
+
+      <form onsubmit="goHome(event)">
+        <div class="input-group">
+          <label for="email">Email / Username</label>
+          <input type="text" id="email" name="email" required>
         </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <a href="#" class="forgot-password">Forgot password?</a>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+
+      <p>Don't have an account? <a href="#">Register Now</a></p>
     </div>
+  </div>
 
-    <script>
-        // ✅ تحقق: إذا المستخدم سبق دخل، دخلو مباشرة للـ Home
-        if (localStorage.getItem("isLoggedIn") === "true") {
-            window.location.href = "Home.html"; // بدلها بمسار صفحتك الرئيسية
-        }
+  <script>
+    // ✅ التحقق إذا المستخدم سبق دخل
+    window.onload = function() {
+      if (localStorage.getItem("loggedIn") === "true") {
+        window.location.href = "go:Home";
+      }
+    }
 
-        // ✅ عند الضغط على زر الدخول
-        document.getElementById("loginForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-
-            // هنا ممكن تضيف تحقق فعلي (API أو قاعدة بيانات)
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            if (email && password) {
-                // نحفظ حالة الدخول
-                localStorage.setItem("isLoggedIn", "true");
-                localStorage.setItem("userEmail", email);
-
-                // نوجه المستخدم للصفحة الرئيسية
-                window.location.href = "Home.html"; // بدلها بمسار الصفحة الرئيسية
-            } else {
-                alert("Please fill in all fields!");
-            }
-        });
-    </script>
+    // ✅ تسجيل الدخول وتخزين الحالة
+    function goHome(e) {
+      e.preventDefault();
+      localStorage.setItem("loggedIn", "true");
+      window.location.href = "go:Home"; // تحويل إلى الصفحة الرئيسية
+    }
+  </script>
 </body>
 </html>
